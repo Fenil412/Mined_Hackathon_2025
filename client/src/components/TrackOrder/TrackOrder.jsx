@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 
 const TrackOrder = () => {
   const [trackingNumber, setTrackingNumber] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
+  };
+
+  const handleDownloadClick = () => {
+    setClicked(true);
   };
 
   return (
@@ -32,13 +39,22 @@ const TrackOrder = () => {
                     required
                   />
                 </div>
-                <div className="flex justify-center mt-5">
+                <div className="flex justify-center mt-5 space-x-4">
                   <button
                     className="px-6 py-2 bg-blue-500 text-white rounded-md text-lg transition-colors hover:bg-blue-700"
                     type="submit"
                   >
                     Track Order
                   </button>
+                  <div 
+                    className={`flex items-center space-x-2 text-red-500 cursor-pointer hover:text-red-700 active:scale-95 transition-transform ${clicked ? 'border border-red-500 p-2 rounded-md' : ''}`} 
+                    onClick={handleDownloadClick}
+                  >
+                    <FontAwesomeIcon icon={faFilePdf} className="text-xl" />
+                    <a href="#" className="font-semibold">
+                      DOWNLOAD PDF
+                    </a>
+                  </div>
                 </div>
               </form>
 
