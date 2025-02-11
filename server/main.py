@@ -1,27 +1,24 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS  # Add this import
+from flask_cors import CORS 
 import pandas as pd
 import math
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app) 
 
 
-# Default Route to Fix 404 Error
 @app.route('/')
 def home():
     return "Flask API is Running! Use /optimize_route to send a POST request."
 
-# Haversine Distance Calculation
 def haversine_distance(lat1, lon1, lat2, lon2):
-    R = 6372.0  # Earth radius in kilometers
+    R = 6372.0 
     dlat = (lat2 - lat1) * math.pi / 180.0
     dlon = (lon2 - lon1) * math.pi / 180.0
     a_val = math.sin(dlat / 2) ** 2 + math.cos(lat1 * math.pi / 180.0) * math.cos(lat2 * math.pi / 180.0) * math.sin(dlon / 2) ** 2
     c = 2 * math.atan2(math.sqrt(a_val), math.sqrt(1 - a_val))
     return R * c
 
-# Route Optimization API
 @app.route('/optimize_route', methods=['POST'])
 def optimize_route():
     try:
