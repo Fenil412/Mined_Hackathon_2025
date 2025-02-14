@@ -61,7 +61,7 @@ export default function Contact() {
                                     />
                                 </svg>
                                 <div className="w-40 ml-4 font-semibold tracking-wide text-md">
-                                    +91 99133 158543
+                                    +91 99133 15854
                                 </div>
                             </div>
 

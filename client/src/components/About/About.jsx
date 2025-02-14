@@ -94,56 +94,75 @@ const About = () => {
             </div>
 
             <div className="col-md-8 col-sm-12">
-  <div className="about-features mt-10">
-    <div className="row">
-      <div className="col-xs-12">
-        <h3 className="section-title text-4xl text-blue-900 font-bold mb-4 relative z-10">
-          <span className="absolute -left-3 -top-5 text-4xl font-bold text-purple-300 opacity-50 z-0">
-            02
-          </span>
-          OUR PROFESSIONS
-        </h3>
-      </div>
-      {/* Grid layout: 2 components per row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Air Shipping */}
-        <div className="flex flex-col items-center text-center p-4 border rounded-lg shadow-lg">
-          <FontAwesomeIcon icon={faPlaneUp} className="text-3xl text-blue-900 mb-2" />
-          <h5 className="text-xl font-semibold">AIR SHIPPING</h5>
-          <p>We can also offer outside storage facilities in Aberdeen and both outside and inside storage in Cowdenbeath.</p>
-        </div>
+              <div className="about-features mt-10">
+                <div className="row">
+                  <div className="col-xs-12">
+                    <h3 className="section-title text-4xl text-blue-900 font-bold mb-4 relative z-10">
+                      <span className="absolute -left-3 -top-5 text-4xl font-bold text-purple-300 opacity-50 z-0">
+                        02
+                      </span>
+                      OUR PROFESSIONS
+                    </h3>
+                  </div>
+                  {/* Grid layout: 2 components per row */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Air Shipping */}
+                    <div className="flex flex-col items-center text-center p-4 border rounded-lg shadow-lg">
+                      <FontAwesomeIcon
+                        icon={faPlaneUp}
+                        className="text-3xl text-blue-900 mb-2"
+                      />
+                      <h5 className="text-xl font-semibold">AIR SHIPPING</h5>
+                      <p>
+                        We can also offer outside storage facilities in Aberdeen
+                        and both outside and inside storage in Cowdenbeath.
+                      </p>
+                    </div>
 
-        {/* Ground Logistic */}
-        <div className="flex flex-col items-center text-center p-4 border rounded-lg shadow-lg">
-          <FontAwesomeIcon icon={faCar} className="text-3xl text-blue-900 mb-2" />
-          <h5 className="text-xl font-semibold">GROUND LOGISTIC</h5>
-          <p>We can also offer outside storage facilities in Aberdeen and both outside and inside storage in Cowdenbeath.</p>
-        </div>
+                    {/* Ground Logistic */}
+                    <div className="flex flex-col items-center text-center p-4 border rounded-lg shadow-lg">
+                      <FontAwesomeIcon
+                        icon={faCar}
+                        className="text-3xl text-blue-900 mb-2"
+                      />
+                      <h5 className="text-xl font-semibold">GROUND LOGISTIC</h5>
+                      <p>
+                        We can also offer outside storage facilities in Aberdeen
+                        and both outside and inside storage in Cowdenbeath.
+                      </p>
+                    </div>
 
-        {/* Sea Transportation */}
-        <div className="flex flex-col items-center text-center p-4 border rounded-lg shadow-lg">
-          <FontAwesomeIcon icon={faShip} className="text-3xl text-blue-900 mb-2" />
-          <h5 className="text-xl font-semibold">SEA TRANSPORTATION</h5>
-          <p>We can also offer outside storage facilities in Aberdeen and both outside and inside storage in Cowdenbeath.</p>
-        </div>
+                    {/* Sea Transportation */}
+                    <div className="flex flex-col items-center text-center p-4 border rounded-lg shadow-lg">
+                      <FontAwesomeIcon
+                        icon={faShip}
+                        className="text-3xl text-blue-900 mb-2"
+                      />
+                      <h5 className="text-xl font-semibold">
+                        SEA TRANSPORTATION
+                      </h5>
+                      <p>
+                        We can also offer outside storage facilities in Aberdeen
+                        and both outside and inside storage in Cowdenbeath.
+                      </p>
+                    </div>
 
-        {/* Domestic Cargo */}
-        <div className="flex flex-col items-center text-center p-4 border rounded-lg shadow-lg">
-          <FontAwesomeIcon icon={faCube} className="text-3xl text-blue-900 mb-2" />
-          <h5 className="text-xl font-semibold">DOMESTIC CARGO</h5>
-          <p>We can also offer outside storage facilities in Aberdeen and both outside and inside storage in Cowdenbeath.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
+                    {/* Domestic Cargo */}
+                    <div className="flex flex-col items-center text-center p-4 border rounded-lg shadow-lg">
+                      <FontAwesomeIcon
+                        icon={faCube}
+                        className="text-3xl text-blue-900 mb-2"
+                      />
+                      <h5 className="text-xl font-semibold">DOMESTIC CARGO</h5>
+                      <p>
+                        We can also offer outside storage facilities in Aberdeen
+                        and both outside and inside storage in Cowdenbeath.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -190,7 +209,7 @@ const About = () => {
                     className="w-full h-auto rounded-full mb-3 mx-auto"
                   />
                   <figcaption>
-                    <h5 className="font-semibold">Vaidik Rokad</h5>
+                    <h5 className="font-semibold">Sneha Mehta</h5>
                     <small className="text-sm">Marketting Manager</small>
                   </figcaption>
                 </figure>
@@ -218,7 +237,7 @@ const About = () => {
                     className="w-full h-auto rounded-full mb-3 mx-auto"
                   />
                   <figcaption>
-                    <h5 className="font-semibold">Dev Shah</h5>
+                    <h5 className="font-semibold">Pooja Sharma</h5>
                     <small className="text-sm">Accounting</small>
                   </figcaption>
                 </figure>
