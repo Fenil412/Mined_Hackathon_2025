@@ -82,19 +82,15 @@ def get_trips():
 
 
 # --- API to Get Optimized Route Map ---
-@app.route('/api/map', methods=['GET'])
-def get_map():
-    timeslot = request.args.get('timeslot')
-    index = int(request.args.get('index', 0))
-
+@app.route('/map/<timeslot>/<int:index>')
+def get_map(timeslot, index):
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], 'smart_route_optimization.xlsx')
-    df = pd.read_excel(file_path, sheet_name="Shipments_Data")
-
-    # Generate a map for the trip
-    map_html = generate_map(df, index)
-
-    return jsonify({'map': map_html}), 200
-
+    shipments_df = pd.read_excel(file_path, sheet_name="Shipments_Data")
+    assignments_file = os.path.join(app.config['UPLOAD_FOLDER'], f'trip_assignments_{timeslot.replace(":", "_")}.csv')
+    assignments = pd.read_csv(assignments_file)
+    route = assignments.iloc[index]['Route'].split(' -> ')
+    map_html = generate_map(route, shipments_df)
+    return render_template('map.html', map_html=map_html, timeslot=timeslot)
 
 # --- Helper Functions ---
 def haversine(lat1, lon1, lat2, lon2):
@@ -162,12 +158,36 @@ def tsp_optimization(route, df):
     return best_sequence, min_distance
 
 
-def generate_map(df, index):
-    """Generate a Folium map for a given trip index."""
-    m = folium.Map(location=[df.iloc[0]['Latitude'], df.iloc[0]['Longitude']], zoom_start=12)
+def generate_map(route, shipments_df):
+    m = folium.Map(location=[shipments_df.iloc[0]['Latitude'], shipments_df.iloc[0]['Longitude']], zoom_start=12)
+    folium.Marker(
+        location=[shipments_df.iloc[0]['Latitude'], shipments_df.iloc[0]['Longitude']],
+        popup='Shop',
+        icon=folium.Icon(color='red', icon='home')
+    ).add_to(m)
 
-    folium.Marker([df.iloc[0]['Latitude'], df.iloc[0]['Longitude']], popup='Shop', icon=folium.Icon(color='red')).add_to(m)
-    
+    for i, shipment_id in enumerate(route[1:-1], 1):
+        shipment = shipments_df[shipments_df['Shipment ID'] == int(shipment_id)].iloc[0]
+        folium.Marker(
+            location=[shipment['Latitude'], shipment['Longitude']],
+            popup=f"Stop {i} (Order {shipment_id})",
+            icon=folium.Icon(color='blue', icon='shopping-cart', prefix='fa'),
+        ).add_to(m)
+
+    route_coords = [[shipments_df.iloc[0]['Latitude'], shipments_df.iloc[0]['Longitude']]]
+    for shipment_id in route[1:-1]:
+        shipment = shipments_df[shipments_df['Shipment ID'] == int(shipment_id)].iloc[0]
+        route_coords.append([shipment['Latitude'], shipment['Longitude']])
+    route_coords.append([shipments_df.iloc[0]['Latitude'], shipments_df.iloc[0]['Longitude']])
+
+    folium.PolyLine(
+        locations=route_coords,
+        weight=5,
+        color='blue',
+        opacity=0.8,
+        tooltip='Route'
+    ).add_to(m)
+
     return m._repr_html_()
 
 
