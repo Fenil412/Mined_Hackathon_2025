@@ -28,7 +28,7 @@ const About = () => {
       image: member2,
     },
     {
-      name: "Vishv Sheta",
+      name: "Vinay Shah",
       role: "Senior Partner",
       image: member3,
     },

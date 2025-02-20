@@ -10,12 +10,12 @@ import container from "../../../photos/container.webp";
 
 const Services = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 py-16">
       <section className="services">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {/* Main Content */}
-            <div className="md:col-span-3 bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="py-16 mb-16 md:col-span-3 bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="col-xs-12">
                 <h3 className="section-title text-4xl text-blue-900 font-bold mb-4 relative z-10">
                   <span className="absolute -left-3 -top-5 text-4xl font-bold text-purple-300 opacity-50 z-0">
@@ -81,8 +81,9 @@ const Services = () => {
                 container shipping industry’s been very unprofitable over the
                 past 3-5 years. Making things worse, earnings have.
               </p>
-
-              <div className="col-xs-12 mt-15 mb-10">
+            </div>
+            <div className="py-16 mb-16 md:col-span-3 bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="col-xs-12">
                 <h3 className="section-title text-4xl text-blue-900 font-bold mb-4 relative z-10">
                   <span className="absolute -left-3 -top-5 text-4xl font-bold text-purple-300 opacity-50 z-0">
                     02

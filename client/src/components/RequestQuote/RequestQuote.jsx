@@ -5,7 +5,6 @@ import RequestForm from "./RequestForm.jsx";
 export default function RequestQuote() {
     return (
         <div>
-            
             <RequestForm />
         </div>
     );
