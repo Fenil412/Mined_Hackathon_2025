@@ -13,7 +13,7 @@ const Services = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 py-16">
       <section className="services">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-0">
             {/* Main Content */}
             <div className="py-16 mb-16 md:col-span-3 bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="col-xs-12">
@@ -82,48 +82,6 @@ const Services = () => {
                 past 3-5 years. Making things worse, earnings have.
               </p>
             </div>
-            <div className="py-16 mb-16 md:col-span-3 bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="col-xs-12">
-                <h3 className="section-title text-4xl text-blue-900 font-bold mb-4 relative z-10">
-                  <span className="absolute -left-3 -top-5 text-4xl font-bold text-purple-300 opacity-50 z-0">
-                    02
-                  </span>
-                  OTHER FEATURES
-                </h3>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="text-center bg-gray-200/80 backdrop-blur-sm p-4 rounded-lg hover:scale-105 hover:shadow-xl hover:border-2 hover:border-blue-900 transition-all duration-300">
-                  <FontAwesomeIcon
-                    icon={faPlaneUp}
-                    className="text-3xl text-blue-900 mb-2"
-                  />
-                  <h5 className="font-semibold">AIR SHIPPING</h5>
-                  <p className="text-gray-700">
-                    Offering storage facilities in London and Cowdenbeath.
-                  </p>
-                </div>
-                <div className="text-center bg-gray-200/80 backdrop-blur-sm p-4 rounded-lg hover:scale-105 hover:shadow-xl hover:border-2 hover:border-blue-900 transition-all duration-300">
-                  <FontAwesomeIcon
-                    icon={faCar}
-                    className="text-3xl text-blue-900 mb-2"
-                  />
-                  <h5 className="font-semibold">GROUND LOGISTICS</h5>
-                  <p className="text-gray-700">
-                    Providing extensive logistics support across locations.
-                  </p>
-                </div>
-                <div className="text-center bg-gray-200/80 backdrop-blur-sm p-4 rounded-lg hover:scale-105 hover:shadow-xl hover:border-2 hover:border-blue-900 transition-all duration-300">
-                  <FontAwesomeIcon
-                    icon={faShip}
-                    className="text-3xl text-blue-900 mb-2"
-                  />
-                  <h5 className="font-semibold">SEA TRANSPORTATION</h5>
-                  <p className="text-gray-700">
-                    Reliable sea freight solutions worldwide.
-                  </p>
-                </div>
-              </div>
-            </div>
 
             {/* Sidebar */}
             <aside className="bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -166,6 +124,49 @@ const Services = () => {
                 </a>
               </div>
             </aside>
+
+            <div className="py-16 mb-1 md:col-span-3 bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="col-xs-12">
+                <h3 className="section-title text-4xl text-blue-900 font-bold mb-4 relative z-10">
+                  <span className="absolute -left-3 -top-5 text-4xl font-bold text-purple-300 opacity-50 z-0">
+                    02
+                  </span>
+                  OTHER FEATURES
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="text-center bg-gray-200/80 backdrop-blur-sm p-4 rounded-lg hover:scale-105 hover:shadow-xl hover:border-2 hover:border-blue-900 transition-all duration-300">
+                  <FontAwesomeIcon
+                    icon={faPlaneUp}
+                    className="text-3xl text-blue-900 mb-2"
+                  />
+                  <h5 className="font-semibold">AIR SHIPPING</h5>
+                  <p className="text-gray-700">
+                    Offering storage facilities in London and Cowdenbeath.
+                  </p>
+                </div>
+                <div className="text-center bg-gray-200/80 backdrop-blur-sm p-4 rounded-lg hover:scale-105 hover:shadow-xl hover:border-2 hover:border-blue-900 transition-all duration-300">
+                  <FontAwesomeIcon
+                    icon={faCar}
+                    className="text-3xl text-blue-900 mb-2"
+                  />
+                  <h5 className="font-semibold">GROUND LOGISTICS</h5>
+                  <p className="text-gray-700">
+                    Providing extensive logistics support across locations.
+                  </p>
+                </div>
+                <div className="text-center bg-gray-200/80 backdrop-blur-sm p-4 rounded-lg hover:scale-105 hover:shadow-xl hover:border-2 hover:border-blue-900 transition-all duration-300">
+                  <FontAwesomeIcon
+                    icon={faShip}
+                    className="text-3xl text-blue-900 mb-2"
+                  />
+                  <h5 className="font-semibold">SEA TRANSPORTATION</h5>
+                  <p className="text-gray-700">
+                    Reliable sea freight solutions worldwide.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
