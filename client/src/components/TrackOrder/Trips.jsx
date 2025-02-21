@@ -19,15 +19,15 @@ export default function Trips({ timeslot }) { // ✅ Now receives timeslot as a 
   }, [timeslot]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 animate-gradient">
-      <h4 className="text-white font-bold text-4xl mb-6 drop-shadow-lg">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-900 via-teal-800 to-purple-900 animate-gradient">
+      <h4 className="text-white font-bold text-4xl mb-6 drop-shadow-lg animate-fade-in">
         TRIPS FOR {timeslot}
       </h4>
 
-      <div className="bg-white p-10 rounded-xl shadow-2xl border border-gray-200 w-full max-w-4xl">
-        <table className="min-w-full bg-white shadow-md rounded-lg">
+      <div className="bg-white/10 backdrop-blur-lg p-10 rounded-xl shadow-2xl border border-white/20 w-full max-w-4xl animate-slide-in-left">
+        <table className="min-w-full bg-white/10 backdrop-blur-lg shadow-md rounded-lg">
           <thead>
-            <tr className="bg-purple-500 text-white">
+            <tr className="bg-gradient-to-r from-yellow-600 to-amber-500 text-white">
               <th className="py-3 px-4">Vehicle Type</th>
               <th className="py-3 px-4">Total Shipments</th>
               <th className="py-3 px-4">Route</th>
@@ -37,14 +37,14 @@ export default function Trips({ timeslot }) { // ✅ Now receives timeslot as a 
           <tbody>
             {trips.length > 0 ? (
               trips.map((trip, index) => (
-                <tr key={index} className="border-t text-gray-800 text-center">
+                <tr key={index} className="border-t border-white/20 text-gray-300 text-center hover:bg-white/10 transition-all duration-300">
                   <td className="py-3 px-4">{trip["Vehicle Type"]}</td>
                   <td className="py-3 px-4">{trip["Total Shipments"]}</td>
                   <td className="py-3 px-4">{trip.Route}</td>
                   <td className="py-3 px-4">
                     <button
                       onClick={() => navigate(`/map/${timeslot}/${index}`)}
-                      className="px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition"
+                      className="px-4 py-2 bg-gradient-to-r from-yellow-600 to-amber-500 text-white rounded-md shadow-md hover:from-amber-500 hover:to-yellow-600 hover:scale-105 transform transition duration-300"
                     >
                       View Map
                     </button>
@@ -53,7 +53,7 @@ export default function Trips({ timeslot }) { // ✅ Now receives timeslot as a 
               ))
             ) : (
               <tr>
-                <td colSpan="4" className="py-4 text-lg font-semibold text-red-600">
+                <td colSpan="4" className="py-4 text-lg font-semibold text-red-400">
                   No trips available for this time slot.
                 </td>
               </tr>

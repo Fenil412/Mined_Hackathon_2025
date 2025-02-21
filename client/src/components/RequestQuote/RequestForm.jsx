@@ -3,7 +3,7 @@ import requestImg from "../../../photos/man.webp";
 
 const RequestQuote = () => {
   return (
-    <section className="relative overflow-hidden py-20 bg-gradient-to-br from-teal-800 via-indigo-900 to-purple-900 animate-gradient">
+    <section className="relative overflow-hidden py-20 bg-gradient-to-br from-indigo-900 via-teal-800 to-purple-900 animate-gradient">
       {/* Container */}
       <div className="container mx-auto px-4">
         <div className="relative p-8 rounded-lg flex flex-col lg:flex-row items-center bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500">

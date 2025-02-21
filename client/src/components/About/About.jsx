@@ -40,7 +40,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 animate-gradient py-16">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-teal-800 to-purple-900 animate-gradient py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section 1: SMART DELIVERY */}
         <section className="about-us py-16 bg-white/10 backdrop-blur-lg rounded-lg shadow-2xl hover:shadow-3xl transition-all duration-500 p-8 mb-16">

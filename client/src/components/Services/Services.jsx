@@ -6,7 +6,7 @@ import container from "../../../photos/container.webp";
 
 const Services = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-800 via-indigo-900 to-purple-900 animate-gradient py-16">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-teal-800 to-purple-900 animate-gradient py-16">
       <section className="services">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
