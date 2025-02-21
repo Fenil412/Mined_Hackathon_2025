@@ -3,30 +3,31 @@ import requestImg from "../../../photos/man.webp";
 
 const RequestQuote = () => {
   return (
-    <section className="text-white py-12 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
-      <div className="container mx-auto" style={{ width: '1170px', height: '920px' }}>
-        <div className="p-8 rounded-lg flex flex-col lg:flex-row items-center">
+    <section className="relative overflow-hidden py-20 bg-gradient-to-br from-teal-800 via-indigo-900 to-purple-900 animate-gradient">
+      {/* Container */}
+      <div className="container mx-auto px-4">
+        <div className="relative p-8 rounded-lg flex flex-col lg:flex-row items-center bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500">
           
           {/* Left Side Image */}
-          <div className="w-full lg:w-1/2 flex justify-center">
+          <div className="w-full lg:w-1/2 flex justify-center relative z-10">
             <img
               src={requestImg}
               alt="Request Quote"
-              className="w-140 h-110 mb-70 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl hover:border-2 hover:border-yellow-500 transition-all duration-300"
+              className="w-140 h-110 rounded-lg shadow-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-3xl hover:border-2 hover:border-amber-500"
             />
           </div>
 
           {/* Right Side Form */}
-          <div className="w-full lg:w-1/2 mt-6 lg:mt-0 bg-blue-900/80 backdrop-blur-sm p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <h4 className="text-3xl text-white font-bold mb-14 ml-4 mt-25 border-l-4 border-yellow-500 pl-3">
+          <div className="w-full lg:w-1/2 mt-10 lg:mt-0 lg:ml-10 bg-gradient-to-br from-indigo-900/70 to-purple-900/70 backdrop-blur-sm p-8 rounded-lg border border-white/20 shadow-lg hover:shadow-xl transition-shadow duration-500 relative z-20">
+            <h4 className="text-3xl text-white font-bold mb-8 border-l-4 border-amber-500 pl-4">
               REQUEST A FREE QUOTE
             </h4>
 
-            <form className="p-4 ml-2">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <form className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium mb-3">Freight Type</label>
-                  <select className="w-full p-2 border border-white text-gray-500 bg-blue-900/80 backdrop-blur-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 hover:border-yellow-500 transition-all duration-300">
+                  <label className="block text-sm font-medium text-white/80 mb-2">Freight Type</label>
+                  <select className="w-full p-3 border border-white/30 bg-indigo-900/50 backdrop-blur-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 hover:border-amber-500 transition-all duration-300">
                     <option value="">-- Select Type --</option>
                     <option value="Air Freight">Air Freight</option>
                     <option value="Ocean Freight">Ocean Freight</option>
@@ -35,53 +36,53 @@ const RequestQuote = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-3">Email Address</label>
+                  <label className="block text-sm font-medium text-white/80 mb-2">Email Address</label>
                   <input
                     type="email"
                     placeholder="Email"
-                    className="w-full p-2 border border-white bg-blue-900/80 backdrop-blur-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 hover:border-yellow-500 transition-all duration-300"
+                    className="w-full p-3 border border-white/30 bg-indigo-900/50 backdrop-blur-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 hover:border-amber-500 transition-all duration-300"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-3">Departure Country</label>
+                  <label className="block text-sm font-medium text-white/80 mb-2">Departure Country</label>
                   <input
                     type="text"
                     placeholder="Country of Departure"
-                    className="w-full p-2 border border-white bg-blue-900/80 backdrop-blur-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 hover:border-yellow-500 transition-all duration-300"
+                    className="w-full p-3 border border-white/30 bg-indigo-900/50 backdrop-blur-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 hover:border-amber-500 transition-all duration-300"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-3">Total Weight (KG)</label>
+                  <label className="block text-sm font-medium text-white/80 mb-2">Total Weight (KG)</label>
                   <input
                     type="text"
                     placeholder="Total Weight"
-                    className="w-full p-2 border border-white bg-blue-900/80 backdrop-blur-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 hover:border-yellow-500 transition-all duration-300"
+                    className="w-full p-3 border border-white/30 bg-indigo-900/50 backdrop-blur-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 hover:border-amber-500 transition-all duration-300"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-3">Recipient's Country</label>
+                  <label className="block text-sm font-medium text-white/80 mb-2">Recipient's Country</label>
                   <input
                     type="text"
                     placeholder="Recipient Country"
-                    className="w-full p-2 border border-white bg-blue-900/80 backdrop-blur-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 hover:border-yellow-500 transition-all duration-300"
+                    className="w-full p-3 border border-white/30 bg-indigo-900/50 backdrop-blur-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 hover:border-amber-500 transition-all duration-300"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-3">Expected Delivery Date</label>
+                  <label className="block text-sm font-medium text-white/80 mb-2">Expected Delivery Date</label>
                   <input
                     type="date"
-                    className="w-full p-2 border border-white bg-blue-900/80 backdrop-blur-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 hover:border-yellow-500 transition-all duration-300"
+                    className="w-full p-3 border border-white/30 bg-indigo-900/50 backdrop-blur-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 hover:border-amber-500 transition-all duration-300"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="w-full mt-6 py-2 px-4 border border-white bg-orange-700 text-white font-bold rounded-lg hover:bg-yellow-500 hover:scale-105 hover:shadow-xl transition-all duration-300 mb-20"
+                className="w-full mt-6 py-3 px-6 bg-gradient-to-r from-amber-600 to-yellow-500 text-white font-bold rounded-lg hover:from-yellow-500 hover:to-amber-600 hover:scale-105 hover:shadow-xl transition-all duration-300"
               >
                 SUBMIT REQUEST
               </button>
