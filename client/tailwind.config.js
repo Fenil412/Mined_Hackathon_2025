@@ -1,5 +1,6 @@
 // tailwind.config.js
 module.exports = {
+    darkMode: 'class',
     theme: {
       extend: {
         animation: {
@@ -17,3 +18,5 @@ module.exports = {
       },
     },
   };
+
+ 

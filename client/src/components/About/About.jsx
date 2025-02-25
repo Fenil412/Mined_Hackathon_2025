@@ -14,6 +14,7 @@ import logo4 from "../../../photos/logo4.webp";
 import logo5 from "../../../photos/logo5.webp";
 import logo6 from "../../../photos/logo6.webp";
 
+
 const About = () => {
   // Array of member data
   const members = [

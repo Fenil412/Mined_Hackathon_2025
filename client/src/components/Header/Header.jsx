@@ -2,32 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Sun, Moon } from "lucide-react";
 import logo from "../../../photos/logo.png";
-
+import { useTheme } from "../../context/ThemeContext"; // Import the ThemeProvider
 
 export default function Header() {
-  const getInitialTheme = () => {
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme === "dark") return "dark";
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-  };
-
-  const [theme, setTheme] = useState(getInitialTheme);
-
-  // Apply theme changes to document and localStorage
-  useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.removeItem("theme"); // Store null instead of "light"
-    }
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
-  };
-
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <header className="sticky top-0 z-50 shadow">
@@ -43,13 +21,18 @@ export default function Header() {
               onClick={toggleTheme}
               className="p-2 mr-3 text-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg"
             >
-              {theme === "dark" ? <Moon className="w-6 h-6" /> : <Sun className="w-6 h-6" />}
+              {theme === "dark" ? (
+                <Moon className="w-6 h-6" />
+              ) : (
+                <Sun className="w-6 h-6" />
+              )}
             </button>
 
             {/* Log in Button */}
             <Link
               to="#"
-              className="text-gray-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+              className="text-gray-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 focus:ring-4 
+              focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
             >
               Log in
             </Link>
@@ -57,7 +40,8 @@ export default function Header() {
             {/* Get Started Button */}
             <Link
               to="#"
-              className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+              className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:ring-orange-300 
+              font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
             >
               Get started
             </Link>
@@ -73,7 +57,9 @@ export default function Header() {
                   to="/"
                   className={({ isActive }) =>
                     `block py-2 pr-4 pl-3 duration-200 ${
-                      isActive ? "text-orange-700 dark:text-orange-400" : "text-gray-700 dark:text-gray-300"
+                      isActive
+                        ? "text-orange-700 dark:text-orange-400"
+                        : "text-gray-700 dark:text-gray-300"
                     } border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
                   }
                 >
@@ -85,7 +71,9 @@ export default function Header() {
                   to="/trackorder"
                   className={({ isActive }) =>
                     `block py-2 pr-4 pl-3 duration-200 ${
-                      isActive ? "text-orange-700 dark:text-orange-400" : "text-gray-700 dark:text-gray-300"
+                      isActive
+                        ? "text-orange-700 dark:text-orange-400"
+                        : "text-gray-700 dark:text-gray-300"
                     } border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
                   }
                 >
@@ -97,7 +85,9 @@ export default function Header() {
                   to="/requestquote"
                   className={({ isActive }) =>
                     `block py-2 pr-4 pl-3 duration-200 ${
-                      isActive ? "text-orange-700 dark:text-orange-400" : "text-gray-700 dark:text-gray-300"
+                      isActive
+                        ? "text-orange-700 dark:text-orange-400"
+                        : "text-gray-700 dark:text-gray-300"
                     } border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
                   }
                 >
@@ -109,7 +99,9 @@ export default function Header() {
                   to="/about"
                   className={({ isActive }) =>
                     `block py-2 pr-4 pl-3 duration-200 ${
-                      isActive ? "text-orange-700 dark:text-orange-400" : "text-gray-700 dark:text-gray-300"
+                      isActive
+                        ? "text-orange-700 dark:text-orange-400"
+                        : "text-gray-700 dark:text-gray-300"
                     } border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
                   }
                 >
@@ -121,7 +113,9 @@ export default function Header() {
                   to="/services"
                   className={({ isActive }) =>
                     `block py-2 pr-4 pl-3 duration-200 ${
-                      isActive ? "text-orange-700 dark:text-orange-400" : "text-gray-700 dark:text-gray-300"
+                      isActive
+                        ? "text-orange-700 dark:text-orange-400"
+                        : "text-gray-700 dark:text-gray-300"
                     } border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
                   }
                 >
@@ -133,7 +127,9 @@ export default function Header() {
                   to="/contact"
                   className={({ isActive }) =>
                     `block py-2 pr-4 pl-3 duration-200 ${
-                      isActive ? "text-orange-700 dark:text-orange-400" : "text-gray-700 dark:text-gray-300"
+                      isActive
+                        ? "text-orange-700 dark:text-orange-400"
+                        : "text-gray-700 dark:text-gray-300"
                     } border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
                   }
                 >

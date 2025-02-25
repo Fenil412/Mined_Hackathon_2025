@@ -4,6 +4,7 @@ import logo from "../../../photos/logo.png";
 
 export default function Footer() {
   return (
+    
     <footer className="bg-white border-y">
       <div className="w-full max-w-screen-xl p-4 py-6 mx-auto lg:py-8">
         <div className="md:flex md:justify-between">
@@ -75,7 +76,7 @@ export default function Footer() {
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm text-gray-500 sm:text-center">
             © 2025
-            <a href="https://hiteshchoudhary.com/" className="hover:underline">
+            <a href="https://github.com/Fenil412" className="hover:underline">
               Fenil Chodvadiya
             </a>
             . All Rights Reserved.
