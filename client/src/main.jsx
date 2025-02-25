@@ -9,6 +9,8 @@ import RequestQuote from './components/RequestQuote/RequestQuote.jsx';
 import About from './components/About/About.jsx';
 import Services from './components/Services/Services.jsx';
 import Contact from './components/Contact/Contact.jsx';
+import SignIn from './components/Auth/LoginForm.jsx';
+import SignUp from './components/Auth/SignupForm.jsx';
 import { ThemeProvider } from './context/ThemeContext'; // Import ThemeProvider
 
 const router = createBrowserRouter(
@@ -20,6 +22,8 @@ const router = createBrowserRouter(
       <Route path="about" element={<About />} />
       <Route path="services" element={<Services />} />
       <Route path="contact" element={<Contact />} />
+      <Route path="signin" element={<SignIn />} />
+      <Route path="signup" element={<SignUp />} />
     </Route>
   )
 );
