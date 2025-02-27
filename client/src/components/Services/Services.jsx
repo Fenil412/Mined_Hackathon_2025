@@ -11,12 +11,15 @@ import container from "../../../photos/container.webp";
 
 const Services = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 dark:from-gray-900 dark:to-gray-800 py-16">
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 dark:from-gray-800 
+    dark:to-gray-700 py-16">
       <section className="services">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {/* Main Content */}
-            <div className="py-16 mb-16 md:col-span-3 bg-white dark:bg-gray-900 backdrop-blur-lg p-8 rounded-lg shadow-2xl transition-transform duration-500 hover:scale-[1.02] hover:shadow-3xl animate-fade-in">
+            <div className="py-16 mb-16 md:col-span-3 bg-white dark:bg-gray-900 backdrop-blur-lg p-8 
+            rounded-lg shadow-2xl transition-transform duration-500 hover:scale-[1.02] hover:shadow-3xl 
+            animate-fade-in">
               <div className="col-xs-12 mb-5">
                 <h3 className="text-4xl font-bold text-gray-800 dark:text-white relative z-10">
                   <span className="absolute -left-3 -top-5 text-4xl font-bold text-purple-400 opacity-50 z-0">
@@ -42,39 +45,40 @@ const Services = () => {
               </p>
               <ul className="list-inside text-gray-700 dark:text-gray-300 font-semibold space-y-2">
                 <li className="hover:translate-x-1 transition-all duration-300">
-                  <span className="text-yellow-500">•</span> Customized freight
+                  <span className="text-orange-600">•</span> Customized freight
                   solutions at competitive pricing
                 </li>
 
                 <li className="hover:translate-x-1 transition-all duration-300">
-                  <span className="text-yellow-500">•</span> Timely alerts and
+                  <span className="text-orange-600">•</span> Timely alerts and
                   notices with track-and-trace monitoring
                 </li>
 
                 <li className="hover:translate-x-1 transition-all duration-300">
-                  <span className="text-yellow-500">•</span> ISF filing and full
+                  <span className="text-orange-600">•</span> ISF filing and full
                   customs clearance
                 </li>
 
                 <li className="hover:translate-x-1 transition-all duration-300">
-                  <span className="text-yellow-500">•</span> Local trucking and
+                  <span className="text-orange-600">•</span> Local trucking and
                   door-to-door delivery
                 </li>
 
                 <li className="hover:translate-x-1 transition-all duration-300">
-                  <span className="text-yellow-500">•</span> Storage and
+                  <span className="text-orange-600">•</span> Storage and
                   warehouse options
                 </li>
 
                 <li className="hover:translate-x-1 transition-all duration-300">
-                  <span className="text-yellow-500">•</span> Complete purchase
+                  <span className="text-orange-600">•</span> Complete purchase
                   order management
                 </li>
               </ul>
               <img
                 src={container}
                 alt="Trade Services"
-                className="rounded-lg shadow-md mb-6 mt-10 w-full h-auto hover:scale-105 hover:shadow-xl hover:border-2 hover:border-yellow-500 transition-all duration-300"
+                className="rounded-lg shadow-md mb-6 mt-10 w-full h-auto hover:scale-105 hover:shadow-xl 
+                hover:border-2 hover:border-orange-500 transition-all duration-300"
               />
               <p className="text-lg text-gray-600 dark:text-gray-300 font-medium mb-4">
                 If you would like to contact us and discuss the import and cargo
@@ -92,28 +96,28 @@ const Services = () => {
             {/* Sidebar */}
             <aside className="bg-white dark:bg-gray-900 backdrop-blur-lg p-6 rounded-lg shadow-2xl transition-transform duration-500 hover:scale-[1.02]">
               <ul className="space-y-2 mb-6 border border-gray-300 dark:border-gray-600 p-4 rounded-lg">
-                <li className="font-semibold text-yellow-500 hover:text-yellow-700 cursor-pointer">
+                <li className="font-semibold text-orange-600 hover:text-orange-700 cursor-pointer">
                   Trade Services
                 </li>
-                <li className="text-gray-600 dark:text-gray-300 hover:text-yellow-500 cursor-pointer">
+                <li className="text-gray-600 dark:text-gray-300 hover:text-orange-600 cursor-pointer">
                   Dry Cargo
                 </li>
-                <li className="text-gray-600 dark:text-gray-300 hover:text-yellow-500 cursor-pointer">
+                <li className="text-gray-600 dark:text-gray-300 hover:text-orange-600 cursor-pointer">
                   Reefer Cargo
                 </li>
-                <li className="text-gray-600 dark:text-gray-300 hover:text-yellow-500 cursor-pointer">
+                <li className="text-gray-600 dark:text-gray-300 hover:text-orange-600 cursor-pointer">
                   Oversized & Breakbulk Cargo
                 </li>
-                <li className="text-gray-600 dark:text-gray-300 hover:text-yellow-500 cursor-pointer">
+                <li className="text-gray-600 dark:text-gray-300 hover:text-orange-600 cursor-pointer">
                   Intermodal
                 </li>
-                <li className="text-gray-600 dark:text-gray-300 hover:text-yellow-500 cursor-pointer">
+                <li className="text-gray-600 dark:text-gray-300 hover:text-orange-600 cursor-pointer">
                   Warehousing & Storage
                 </li>
-                <li className="text-gray-600 dark:text-gray-300 hover:text-yellow-500 cursor-pointer">
+                <li className="text-gray-600 dark:text-gray-300 hover:text-orange-600 cursor-pointer">
                   Cross Trading
                 </li>
-                <li className="text-gray-600 dark:text-gray-300 hover:text-yellow-500 cursor-pointer">
+                <li className="text-gray-600 dark:text-gray-300 hover:text-orange-600 cursor-pointer">
                   Cargo Trailers
                 </li>
               </ul>
@@ -121,15 +125,15 @@ const Services = () => {
               <img
                 src={box}
                 alt="Side Banner"
-                className="rounded-lg shadow-md mb-4 w-full h-auto hover:scale-105 hover:shadow-xl hover:border-2 hover:border-yellow-500 transition-all duration-300"
+                className="rounded-lg shadow-md mb-4 w-full h-auto hover:scale-105 hover:shadow-xl hover:border-2 hover:border-orange-500 transition-all duration-300"
               />
 
-              <div className="flex items-center border-2 border-yellow-500 p-3 rounded-lg hover:scale-105 transition-all duration-300">
+              <div className="flex items-center border-2 border-orange-500 p-3 rounded-lg hover:scale-105 transition-all duration-300">
                 <FontAwesomeIcon
                   icon={faFilePdf}
-                  className="text-2xl mr-2 text-yellow-500"
+                  className="text-2xl mr-2 text-orange-600"
                 />
-                <a href="#" className="text-yellow-500 font-bold">
+                <a href="#" className="text-orange-600 font-bold">
                   DOWNLOAD PDF
                 </a>
               </div>
@@ -146,10 +150,10 @@ const Services = () => {
                 </h3>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="text-center bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md hover:scale-105 hover:shadow-xl hover:border-2 hover:border-yellow-500 transition-all duration-300">
+                <div className="text-center bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md hover:scale-105 hover:shadow-xl hover:border-2 hover:border-orange-500 transition-all duration-300">
                   <FontAwesomeIcon
                     icon={faPlaneUp}
-                    className="text-3xl text-yellow-500 mb-2"
+                    className="text-3xl text-orange-600 mb-2"
                   />
                   <h5 className="font-semibold text-gray-800 dark:text-white">
                     AIR SHIPPING
@@ -158,10 +162,10 @@ const Services = () => {
                     Offering storage facilities in London and Cowdenbeath.
                   </p>
                 </div>
-                <div className="text-center bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md hover:scale-105 hover:shadow-xl hover:border-2 hover:border-yellow-500 transition-all duration-300">
+                <div className="text-center bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md hover:scale-105 hover:shadow-xl hover:border-2 hover:border-orange-500 transition-all duration-300">
                   <FontAwesomeIcon
                     icon={faCar}
-                    className="text-3xl text-yellow-500 mb-2"
+                    className="text-3xl text-orange-600 mb-2"
                   />
                   <h5 className="font-semibold text-gray-800 dark:text-white">
                     GROUND LOGISTICS
@@ -170,10 +174,10 @@ const Services = () => {
                     Providing extensive logistics support across locations.
                   </p>
                 </div>
-                <div className="text-center bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md hover:scale-105 hover:shadow-xl hover:border-2 hover:border-yellow-500 transition-all duration-300">
+                <div className="text-center bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md hover:scale-105 hover:shadow-xl hover:border-2 hover:border-orange-500 transition-all duration-300">
                   <FontAwesomeIcon
                     icon={faShip}
-                    className="text-3xl text-yellow-500 mb-2"
+                    className="text-3xl text-orange-600 mb-2"
                   />
                   <h5 className="font-semibold text-gray-800 dark:text-white">
                     SEA TRANSPORTATION

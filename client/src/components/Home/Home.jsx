@@ -20,7 +20,9 @@ export default function Home() {
     return (
         <div>
             {/* Background Image Animation Section */}
-            <div className="relative w-full h-[90vh] flex items-center bg-gradient-to-br from-indigo-900 via-teal-800 to-purple-900 
+            <div className="relative w-full h-[90vh] flex items-center bg-gradient-to-br 
+            from-gray-100 to-gray-300 dark:from-gray-800 
+    dark:to-gray-700
             animate-gradient">
                 <div
                     className="absolute inset-0 transition-opacity duration-5000 bg-cover bg-center"
@@ -31,7 +33,8 @@ export default function Home() {
                 <div className="absolute inset-0 bg-black/50"></div>
 
                 {/* Content Section - Positioned Left & Centered Vertically */}
-                <div className="relative z-10 text-left pl-14 sm:pl-28 flex flex-col justify-center h-full animate-slide-in-left">
+                <div className="relative z-10 text-left pl-14 sm:pl-28 flex flex-col justify-center 
+                h-full animate-slide-in-left">
                     <h1 className="text-8xl font-bold text-red-700">LOGISTICS</h1>
                     <p className="text-4xl text-white mt-4">Check your delivery easily & quickly</p>
 

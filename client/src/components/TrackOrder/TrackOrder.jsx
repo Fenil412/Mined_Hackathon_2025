@@ -39,29 +39,39 @@ const TrackOrder = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-900 via-teal-800 to-purple-900 animate-gradient">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br 
+    from-gray-100 to-gray-300 dark:from-gray-800 dark:to-gray-700 transition-all duration-500">
       {!uploaded ? (
         <>
-          <h4 className="text-white font-bold text-4xl mb-6 drop-shadow-lg animate-fade-in">
-            UPLOAD SHIPMENT DATA
-          </h4>
-          <div className="bg-white/10 backdrop-blur-lg p-10 rounded-xl shadow-2xl border border-white/20 animate-slide-in-left">
-            <h2 className="text-2xl font-semibold mb-4 text-white">Upload File</h2>
+          <h4 className="text-gray-800 dark:text-white font-bold text-4xl mb-6 drop-shadow-lg 
+      animate-fade-in">
+        UPLOAD SHIPMENT DATA
+      </h4>
+      <div className="bg-white dark:bg-gray-900 backdrop-blur-lg p-10 rounded-xl shadow-2xl border 
+      border-gray-300 dark:border-gray-700 animate-slide-in-left transition-all duration-500">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">Upload File</h2>
             <input
               type="file"
               onChange={handleFileChange}
-              className="mb-4 p-3 border border-white/30 bg-white/10 text-white rounded-md w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition duration-300 placeholder:text-gray-400"
+              className="mb-4 p-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 
+          text-gray-800 dark:text-white rounded-lg w-full shadow-sm focus:outline-none focus:ring-2 
+          focus:ring-orange-700 hover:border-orange-700 transition-all duration-300 
+          placeholder:text-gray-500 dark:placeholder-gray-400"
             />
             <div className="flex justify-center space-x-4">
               <button
                 onClick={handleUpload}
-                className="px-6 py-3 bg-gradient-to-r from-green-600 to-lime-500 text-white rounded-xl text-lg font-semibold shadow-lg transform transition hover:scale-110 hover:from-lime-500 hover:to-green-600 hover:shadow-2xl"
+                className="px-6 py-3 text-white font-bold bg-gradient-to-r from-green-700 
+                  to-lime-700 rounded-lg hover:from-lime-700 hover:to-green-700 transform 
+                  hover:scale-105 transition duration-300 ease-in-out shadow-lg hover:shadow-xl"
               >
                 Upload & Proceed
               </button>
               <button
                 onClick={handleDownloadClick}
-                className="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-500 text-white rounded-xl text-lg font-semibold shadow-lg transform transition hover:scale-110 hover:from-pink-500 hover:to-red-600 hover:shadow-2xl flex items-center space-x-2"
+                className="px-6 py-3 text-white font-bold bg-gradient-to-r from-orange-700 
+                  to-amber-700 rounded-lg hover:from-amber-700 hover:to-orange-700 transform 
+                  hover:scale-105 transition duration-300 ease-in-out shadow-lg hover:shadow-xl"
               >
                 <FontAwesomeIcon icon={faFilePdf} className="text-xl" />
                 <span>Download PDF</span>
@@ -70,7 +80,7 @@ const TrackOrder = () => {
             {message && (
               <p
                 className={`mt-4 text-lg font-semibold ${
-                  message.includes("successfully") ? "text-green-400" : "text-red-400"
+                  message.includes("successfully") ? "text-green-500 dark:text-green-400" : "text-red-500 dark:text-red-400"
                 }`}
               >
                 {message}
