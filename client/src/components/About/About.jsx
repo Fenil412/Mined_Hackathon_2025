@@ -149,8 +149,9 @@ const About = () => {
             {/* Grid layout: 2 components per row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Air Shipping */}
-              <div className="flex flex-col items-center text-center p-4 border border-orange-600 rounded-lg 
-              shadow-lg hover:scale-105 hover:shadow-xl hover:border-2 hover:border-orange-600 transition-all duration-300 animate-fade-in">
+                <div className="flex flex-col items-center text-center p-4 border border-orange-600 
+                rounded-lg shadow-lg hover:scale-105 hover:shadow-xl hover:border-2 
+                hover:border-orange-600 transition-all duration-300 animate-fade-in">
                 <FontAwesomeIcon
                   icon={faPlaneUp}
                   className="text-3xl text-orange-600 mb-2"
