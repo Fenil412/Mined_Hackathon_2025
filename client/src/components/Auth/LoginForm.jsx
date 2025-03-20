@@ -1,48 +1,52 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 export default function LoginForm() {
     return (
-        <div className="relative flex items-top justify-center min-h-screen bg-gradient-to-br from-indigo-900 via-teal-800 to-purple-900 animate-gradient sm:items-center sm:pt-0">
-            <div className="max-w-md mx-auto sm:px-6 lg:px-8">
-                <div className="mt-8 overflow-hidden">
-                    <div className="p-8 bg-white/10 backdrop-blur-lg rounded-lg shadow-2xl hover:shadow-3xl transition-all duration-500 animate-slide-in-left">
-                        <h1 className="text-4xl font-extrabold text-white sm:text-5xl mb-6">
-                            Log In
-                        </h1>
-                        <form className="space-y-6">
-                            {/* Email */}
-                            <div className="flex flex-col">
-                                <input
-                                    type="email"
-                                    name="email"
-                                    id="email"
-                                    placeholder="Email"
-                                    className="px-4 py-3 text-white bg-white/10 border border-gray-300/30 rounded-lg focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500/50 outline-none transition duration-300 placeholder:text-gray-400"
-                                />
-                            </div>
-
-                            {/* Password */}
-                            <div className="flex flex-col">
-                                <input
-                                    type="password"
-                                    name="password"
-                                    id="password"
-                                    placeholder="Password"
-                                    className="px-4 py-3 text-white bg-white/10 border border-gray-300/30 rounded-lg focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500/50 outline-none transition duration-300 placeholder:text-gray-400"
-                                />
-                            </div>
-
-                            {/* Submit ButtonA */}
-                            <button
-                                type="submit"
-                                className="w-full px-6 py-3 text-white font-bold bg-gradient-to-r from-yellow-600 to-amber-500 rounded-lg hover:from-amber-500 hover:to-yellow-600 hover:scale-105 transform transition duration-300 ease-in-out shadow-md hover:shadow-lg"
-                            >
-                                Log In
-                            </button>
-                        </form>
+        
+            <div
+              className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br 
+    from-gray-100 to-gray-300 dark:from-gray-800 dark:to-gray-700 transition-all duration-500"
+            >
+              {/* Dark Overlay */}
+              <div className="absolute inset-0 bg-black/50"></div>
+        
+              {/* Sign In Form */}
+              <div className="relative z-10 bg-white dark:bg-gray-900 backdrop-blur-lg p-10 rounded-xl 
+              shadow-2xl border border-gray-300 dark:border-gray-700 animate-slide-in-left hover:shadow-3xl 
+              transform hover:-translate-y-2 transition-all duration-500 w-full max-w-md">
+                <h1 className="text-4xl font-extrabold text-gray-800 dark:text-white sm:text-5xl mb-6">
+                  Sign In
+                </h1>
+                <form className="space-y-6">
+                  {["Email or User ID", "Password"].map((placeholder, index) => (
+                    <div className="flex flex-col" key={index}>
+                      <input
+                        type={placeholder === "Password" ? "password" : "text"}
+                        name={placeholder.toLowerCase().replace(/ /g, "")}
+                        placeholder={placeholder}
+                        className="px-4 py-3 text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg focus:border-orange-700 focus:ring-2 focus:ring-orange-700/50 outline-none transition duration-300 placeholder:text-gray-500 dark:placeholder-gray-400"
+                      />
                     </div>
-                </div>
+                  ))}
+        
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    className="w-full px-6 py-3 text-white font-bold bg-gradient-to-r from-orange-700 to-amber-700 rounded-lg hover:from-amber-700 hover:to-orange-700 transform hover:scale-105 transition duration-300 ease-in-out shadow-lg hover:shadow-xl"
+                  >
+                    Sign In
+                  </button>
+        
+                  {/* Toggle to Sign Up */}
+                  <Link
+                    to="/signup" // Update the route as needed
+                    className="block w-full px-6 py-3 text-orange-700 font-bold bg-transparent border border-orange-700 rounded-lg hover:bg-orange-700 hover:text-white transform hover:scale-105 transition duration-300 ease-in-out shadow-lg hover:shadow-xl text-center"
+                  >
+                   Don't have an account? Sign Up
+                  </Link>
+                </form>
+              </div>
             </div>
-        </div>
     );
 }

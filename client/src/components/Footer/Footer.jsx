@@ -5,12 +5,12 @@ import logo from "../../../photos/logo.png";
 export default function Footer() {
   return (
     
-    <footer className="bg-white dark:bg-gray-900 border-gray-200">
+    <footer className="bg-white dark:bg-gray-900 border-gray-200 sticky top-0 z-50 shadow">
       <div className="w-full max-w-screen-xl p-4 py-6 mx-auto lg:py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
             <Link to="/" className="flex items-center">
-              <img src={logo} className="h-12 mr-3" alt="Logo" />
+              <img src={logo} className="h-12 mr-3 dark:invert" alt="Logo" />
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">

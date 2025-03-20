@@ -2,161 +2,227 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pandas as pd
 import numpy as np
-import os
 import math
 import csv
 import folium
-from itertools import permutations
-from sklearn.cluster import AgglomerativeClustering
-from geopy.distance import geodesic
-from datetime import datetime
+import os
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for React
+CORS(app)  # Enable CORS to allow React frontend to communicate with Flask
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
 # Ensure the upload folder exists
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
 
+# Route for the home page (React will handle rendering)
+@app.route('/')
+def home():
+    return jsonify({"message": "Welcome to the Smart Route Optimization API"})
 
-# --- API to Upload Excel File ---
-@app.route('/api/upload', methods=['POST'])
+# Route for file upload
+@app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
-        return jsonify({'error': 'No file uploaded'}), 400
-    
+        return jsonify({"error": "No file part"}), 400
     file = request.files['file']
     if file.filename == '':
-        return jsonify({'error': 'No file selected'}), 400
-    
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], 'smart_route_optimization.xlsx')
-    file.save(file_path)
-    
-    return jsonify({'message': 'File uploaded successfully', 'file_path': file_path}), 200
+        return jsonify({"error": "No selected file"}), 400
+    if file:
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], 'smart_route_optimization.xlsx')
+        file.save(file_path)
+        return jsonify({"message": "File uploaded successfully", "file_path": file_path}), 200
+    return jsonify({"error": "File upload failed"}), 500
 
-
-# --- API to Get Available Time Slots ---
-@app.route('/api/timeslots', methods=['GET'])
+# Route to get available timeslots
+@app.route('/timeslots', methods=['GET'])
 def get_timeslots():
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], 'smart_route_optimization.xlsx')
-    
     if not os.path.exists(file_path):
-        return jsonify({'error': 'No file uploaded yet'}), 400
+        return jsonify({"error": "No file uploaded"}), 400
+    shipments_df = pd.read_excel(file_path, sheet_name="Shipments_Data")
+    timeslots = shipments_df['Delivery Timeslot'].unique().tolist()
+    return jsonify({"timeslots": timeslots}), 200
 
-    df = pd.read_excel(file_path, sheet_name="Shipments_Data")
-    timeslots = df['Delivery Timeslot'].unique().tolist()
-
-    return jsonify({'timeslots': timeslots}), 200
-
-
-# --- API to Get Optimized Trips for a Time Slot ---
-@app.route('/api/trips', methods=['GET'])
-def get_trips():
-    timeslot = request.args.get('timeslot')
-    
-    if not timeslot:
-        return jsonify({'error': 'Timeslot is required'}), 400
-
+# Route to get trips for a selected timeslot
+@app.route('/trips/<timeslot>', methods=['GET'])
+def show_trips(timeslot):
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], 'smart_route_optimization.xlsx')
-    df = pd.read_excel(file_path, sheet_name="Shipments_Data")
+    if not os.path.exists(file_path):
+        return jsonify({"error": "No file uploaded"}), 400
 
-    # Filter by timeslot
-    df_timeslot = df[df['Delivery Timeslot'] == timeslot]
+    # Read the Excel file
+    shipments_df = pd.read_excel(file_path, sheet_name="Shipments_Data")
 
-    # Compute distance matrix
-    dist_matrix = compute_distance_matrix(df_timeslot)
+    store_lat, store_lon = shipments_df.iloc[0]['Latitude'], shipments_df.iloc[0]['Longitude']
 
-    # Cluster shipments
-    df_timeslot = cluster_shipments(df_timeslot, dist_matrix, num_clusters=5)
+    df_timeslot = shipments_df[shipments_df['Delivery Timeslot'] == timeslot]
+    df_timeslot_with_shop = insert_shop_location(df_timeslot, store_lat, store_lon)
+    dist_matrix = calculate_distance_matrix_with_shop(df_timeslot_with_shop)
+    dist_matrix_df = pd.DataFrame(dist_matrix, index=df_timeslot_with_shop['Shipment ID'],
+                                  columns=df_timeslot_with_shop['Shipment ID'])
+    dist_matrix_file = os.path.join(app.config['UPLOAD_FOLDER'], f'dist_matrix_{timeslot.replace(":", "_")}.csv')
+    dist_matrix_df.to_csv(dist_matrix_file)
 
-    # Assign shipments to vehicles
     vehicles = [
-        {"type": "3W", "capacity": 5, "max_radius": 15},
-        {"type": "4W-EV", "capacity": 8, "max_radius": 20},
-        {"type": "4W", "capacity": 25, "max_radius": 100}
+        {"type": "3W", "count": 50, "capacity": 5, "max_radius": 15, "max_trip_time": 240},
+        {"type": "4W-EV", "count": 25, "capacity": 8, "max_radius": 20, "max_trip_time": 300},
+        {"type": "4W", "count": float('inf'), "capacity": 25, "max_radius": float('inf'), "max_trip_time": 480}
     ]
-    assignments = assign_shipments(df_timeslot, vehicles)
 
-    return jsonify({'assignments': assignments}), 200
+    headers, distance_matrix = parse_distance_matrix(dist_matrix_file)
+    assignments = assign_shipments(headers, distance_matrix, vehicles)
+    assignments_file = os.path.join(app.config['UPLOAD_FOLDER'], f'trip_assignments_{timeslot.replace(":", "_")}.csv')
+    save_to_csv(assignments, assignments_file)
 
+    return jsonify({"assignments": assignments, "timeslot": timeslot}), 200
 
-# --- API to Get Optimized Route Map ---
-@app.route('/map/<timeslot>/<int:index>')
-def get_map(timeslot, index):
+# Route to get map HTML for a specific trip
+@app.route('/map/<timeslot>/<int:index>', methods=['GET'])
+def show_map(timeslot, index):
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], 'smart_route_optimization.xlsx')
+    if not os.path.exists(file_path):
+        return jsonify({"error": "No file uploaded"}), 400
+
     shipments_df = pd.read_excel(file_path, sheet_name="Shipments_Data")
     assignments_file = os.path.join(app.config['UPLOAD_FOLDER'], f'trip_assignments_{timeslot.replace(":", "_")}.csv')
+    if not os.path.exists(assignments_file):
+        return jsonify({"error": "Trip assignments not found"}), 400
+
     assignments = pd.read_csv(assignments_file)
+    if index >= len(assignments):
+        return jsonify({"error": "Invalid trip index"}), 400
+
     route = assignments.iloc[index]['Route'].split(' -> ')
     map_html = generate_map(route, shipments_df)
-    return render_template('map.html', map_html=map_html, timeslot=timeslot)
+    return jsonify({"map_html": map_html, "timeslot": timeslot}), 200
 
-# --- Helper Functions ---
+# Helper functions (unchanged from index.py)
 def haversine(lat1, lon1, lat2, lon2):
-    """Calculate distance between two lat-lon points."""
-    R = 6371.0  # Earth radius in km
+    R = 6371.0  # Radius of the Earth in kilometers
     lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
     dlat = lat2 - lat1
     dlon = lon2 - lon1
     a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
-    return R * (2 * math.atan2(math.sqrt(a), math.sqrt(1 - a)))
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    distance = R * c
+    return distance
 
+def insert_shop_location(df, store_lat, store_lon):
+    shop_data = pd.DataFrame(
+        {'Shipment ID': ['Shop'], 'Latitude': [store_lat], 'Longitude': [store_lon], 'Delivery Timeslot': ['Shop']})
+    df_with_shop = pd.concat([shop_data, df], ignore_index=True)
+    return df_with_shop
 
-def compute_distance_matrix(df):
-    """Compute distance matrix using Haversine formula."""
+def calculate_distance_matrix_with_shop(df):
     n = len(df)
     dist_matrix = np.zeros((n, n))
     for i in range(n):
         for j in range(i, n):
-            dist = haversine(df.iloc[i]['Latitude'], df.iloc[i]['Longitude'],
-                             df.iloc[j]['Latitude'], df.iloc[j]['Longitude'])
+            lat1, lon1 = df.iloc[i]['Latitude'], df.iloc[i]['Longitude']
+            lat2, lon2 = df.iloc[j]['Latitude'], df.iloc[j]['Longitude']
+            dist = haversine(lat1, lon1, lat2, lon2)
             dist_matrix[i, j] = dist_matrix[j, i] = dist
     return dist_matrix
 
+def parse_distance_matrix(file_path):
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file)
+        headers = next(reader)
+        distance_matrix = []
+        for row in reader:
+            distance_matrix.append([float(x) for x in row[1:]])
+    return headers, distance_matrix
 
-def cluster_shipments(df, dist_matrix, num_clusters=5):
-    """Cluster shipments using Agglomerative Clustering."""
-    clustering = AgglomerativeClustering(n_clusters=num_clusters, metric='precomputed', linkage='complete')
-    df['Cluster'] = clustering.fit_predict(dist_matrix)
-    return df
+def assign_shipments(headers, distance_matrix, vehicles):
+    shipments = headers[1:]  # Exclude the shop from shipments
+    n = len(shipments)
+    assigned = [False] * n
+    vehicle_assignments = []
 
+    # Track the maximum distance for 4W vehicles
+    max_4w_distance = 0
 
-def assign_shipments(df, vehicles):
-    """Assign shipments to vehicles using a nearest-neighbor heuristic."""
-    assignments = []
     for vehicle in vehicles:
-        assignments.append({
-            "Vehicle Type": vehicle["type"],
-            "Total Shipments": min(len(df), vehicle["capacity"]),
-            "Route": "Shop -> " + " -> ".join(map(str, df.sample(n=min(len(df), vehicle["capacity"]))['Shipment ID'])) + " -> Shop"
-        })
-    return assignments
+        count = vehicle["count"]
+        if count == float('inf'):
+            count = n
 
+        for _ in range(count):
+            current_capacity = 0
+            current_distance = 0
+            current_shipments = []
+            last_location = 0  # Start at the shop (index 0)
 
-def tsp_optimization(route, df):
-    """Optimize a trip sequence using TSP (brute force for small trips)."""
-    best_sequence = None
-    min_distance = float('inf')
+            while current_capacity < vehicle["capacity"]:
+                min_distance = float('inf')
+                next_shipment = -1
 
-    for perm in permutations(route[1:-1]):
-        current_distance = 0
-        current_location = route[0]
+                for i in range(n):
+                    if not assigned[i]:
+                        shipment_index = i + 1  # Skip the shop (index 0)
+                        if shipment_index < len(distance_matrix) and last_location < len(
+                                distance_matrix[shipment_index]):
+                            if distance_matrix[last_location][shipment_index] < min_distance:
+                                min_distance = distance_matrix[last_location][shipment_index]
+                                next_shipment = i
 
-        for loc in perm:
-            current_distance += haversine(df.loc[current_location, 'Latitude'], df.loc[current_location, 'Longitude'],
-                                          df.loc[loc, 'Latitude'], df.loc[loc, 'Longitude'])
-            current_location = loc
+                if next_shipment == -1:
+                    break
 
-        current_distance += haversine(df.loc[current_location, 'Latitude'], df.loc[current_location, 'Longitude'],
-                                      df.loc[route[-1], 'Latitude'], df.loc[route[-1], 'Longitude'])
+                shipment_index = next_shipment + 1
+                if shipment_index < len(distance_matrix) and last_location < len(distance_matrix[shipment_index]):
+                    total_distance = current_distance + min_distance + distance_matrix[shipment_index][0]
+                    if total_distance <= vehicle["max_radius"]:
+                        current_distance += min_distance
+                        current_capacity += 1
+                        assigned[next_shipment] = True
+                        current_shipments.append(shipments[next_shipment])
+                        last_location = shipment_index
+                    else:
+                        break
 
-        if current_distance < min_distance:
-            min_distance = current_distance
-            best_sequence = ["Shop"] + list(perm) + ["Shop"]
+            if current_shipments:
+                total_distance = current_distance + distance_matrix[last_location][0]
+                trip_time = (total_distance * 5) + (len(current_shipments) * 10)
+                capacity_utilization = current_capacity / vehicle["capacity"]
+                time_utilization = trip_time / vehicle["max_trip_time"]
 
-    return best_sequence, min_distance
+                # Calculate distance utilization differently for 4W vehicles
+                if vehicle["type"] == "4W":
+                    if total_distance > max_4w_distance:
+                        max_4w_distance = total_distance
+                    distance_utilization = total_distance / max_4w_distance if max_4w_distance != 0 else 0
+                else:
+                    distance_utilization = total_distance / vehicle["max_radius"]
 
+                route = ["Shop"] + current_shipments + ["Shop"]
+                if route.count("Shop") > 2:
+                    route = ["Shop"] + [x for x in route if x != "Shop"] + ["Shop"]
+
+                route_string = " -> ".join(route)
+                current_shipments = [x for x in current_shipments if x != "Shop"]
+                shipments_delivered = ", ".join(current_shipments)
+
+                vehicle_assignments.append({
+                    "Vehicle Type": vehicle["type"],
+                    "Total Shipments": len(current_shipments),
+                    "Shipments Delivered": shipments_delivered,
+                    "Route": route_string,
+                    "MST Distance": round(total_distance, 2),
+                    "Trip Time": round(trip_time, 2),
+                    "Capacity Utilization": round(capacity_utilization, 2),
+                    "Time Utilization": round(time_utilization, 2),
+                    "COV_UTI (Distance Utilization)": round(distance_utilization, 2)
+                })
+
+    return vehicle_assignments
+
+def save_to_csv(results, output_file):
+    with open(output_file, mode='w', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=results[0].keys())
+        writer.writeheader()
+        writer.writerows(results)
 
 def generate_map(route, shipments_df):
     m = folium.Map(location=[shipments_df.iloc[0]['Latitude'], shipments_df.iloc[0]['Longitude']], zoom_start=12)
@@ -189,7 +255,6 @@ def generate_map(route, shipments_df):
     ).add_to(m)
 
     return m._repr_html_()
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

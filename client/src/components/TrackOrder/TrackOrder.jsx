@@ -16,9 +16,10 @@ const TrackOrder = () => {
     setFile(e.target.files[0]);
   };
 
-  const handleUpload = async () => {
+  const handleUpload = async (e) => {
+    e.preventDefault(); // Prevent default form submission
     if (!file) {
-      setMessage("Please select a file.");
+      setMessage("Please select a file to upload.");
       return;
     }
 
@@ -26,11 +27,15 @@ const TrackOrder = () => {
     formData.append("file", file);
 
     try {
-      await axios.post("http://127.0.0.1:5001/api/upload", formData);
-      setMessage("File uploaded successfully!");
-      setUploaded(true);
+      const response = await axios.post("http://localhost:5001/upload", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setMessage(response.data.message);
+      setUploaded(true); // Set uploaded to true to render SelectTimeslot
     } catch (error) {
-      setMessage("Error uploading file.");
+      setMessage(error.response?.data?.error || "Error uploading file.");
     }
   };
 
@@ -45,42 +50,47 @@ const TrackOrder = () => {
         <>
           <h4 className="text-gray-800 dark:text-white font-bold text-4xl mb-6 drop-shadow-lg 
       animate-fade-in">
-        UPLOAD SHIPMENT DATA
-      </h4>
-      <div className="bg-white dark:bg-gray-900 backdrop-blur-lg p-10 rounded-xl shadow-2xl border 
+            UPLOAD SHIPMENT DATA
+          </h4>
+          <div className="bg-white dark:bg-gray-900 backdrop-blur-lg p-10 rounded-xl shadow-2xl border 
       border-gray-300 dark:border-gray-700 animate-slide-in-left transition-all duration-500">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">Upload File</h2>
-            <input
-              type="file"
-              onChange={handleFileChange}
-              className="mb-4 p-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">Upload File</h2>
+            <form onSubmit={handleUpload}>
+              <input
+                type="file"
+                onChange={handleFileChange}
+                className="mb-4 p-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 
           text-gray-800 dark:text-white rounded-lg w-full shadow-sm focus:outline-none focus:ring-2 
           focus:ring-orange-700 hover:border-orange-700 transition-all duration-300 
           placeholder:text-gray-500 dark:placeholder-gray-400"
-            />
-            <div className="flex justify-center space-x-4">
-              <button
-                onClick={handleUpload}
-                className="px-6 py-3 text-white font-bold bg-gradient-to-r from-green-700 
+                accept=".xlsx" // Restrict to Excel files
+              />
+              <div className="flex justify-center space-x-4">
+                <button
+                  type="submit"
+                  className="px-6 py-3 text-white font-bold bg-gradient-to-r from-green-700 
                   to-lime-700 rounded-lg hover:from-lime-700 hover:to-green-700 transform 
                   hover:scale-105 transition duration-300 ease-in-out shadow-lg hover:shadow-xl"
-              >
-                Upload & Proceed
-              </button>
-              <button
-                onClick={handleDownloadClick}
-                className="px-6 py-3 text-white font-bold bg-gradient-to-r from-orange-700 
+                >
+                  Upload & Proceed
+                </button>
+                <button
+                  onClick={handleDownloadClick}
+                  className="px-6 py-3 text-white font-bold bg-gradient-to-r from-orange-700 
                   to-amber-700 rounded-lg hover:from-amber-700 hover:to-orange-700 transform 
                   hover:scale-105 transition duration-300 ease-in-out shadow-lg hover:shadow-xl"
-              >
-                <FontAwesomeIcon icon={faFilePdf} className="text-xl" />
-                <span>Download PDF</span>
-              </button>
-            </div>
+                >
+                  <FontAwesomeIcon icon={faFilePdf} className="text-xl" />
+                  <span>Download PDF</span>
+                </button>
+              </div>
+            </form>
             {message && (
               <p
                 className={`mt-4 text-lg font-semibold ${
-                  message.includes("successfully") ? "text-green-500 dark:text-green-400" : "text-red-500 dark:text-red-400"
+                  message.includes("successfully")
+                    ? "text-green-500 dark:text-green-400"
+                    : "text-red-500 dark:text-red-400"
                 }`}
               >
                 {message}
