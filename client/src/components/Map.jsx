@@ -9,6 +9,7 @@ const Map = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
+  
   // Vehicle type icons and gradients mapping
   const vehicleTypeDetails = {
     "3W": { 
@@ -35,11 +36,9 @@ const Map = () => {
         setLoading(false);
         return;
       }
-
+  
       try {
         setLoading(true);
-        
-        // First, fetch trip details to get vehicle type and trip time
         const tripsResponse = await axios.get(`http://localhost:5001/trips/${timeslot}`);
         const tripData = tripsResponse.data.assignments || [];
         
@@ -47,7 +46,6 @@ const Map = () => {
           setTripDetails(tripData[parseInt(index)]);
         }
         
-        // Next, fetch the map HTML
         const mapResponse = await axios.get(`http://localhost:5001/map/${timeslot}/${index}`);
         setMapHtml(mapResponse.data.map_html || '');
         setError('');

@@ -124,7 +124,7 @@ export default function Trips({ timeslot }) {
                     <td className="py-3 px-3 text-sm text-center text-gray-700 dark:text-gray-200 border-r border-amber-200 dark:border-amber-700/30 group-hover:font-semibold">{trip["COV_UTI (Distance Utilization)"]}</td>
                     <td className="py-3 px-3 text-center">
                       <Link
-                        to={`/map/${timeslot}/${index}`}
+                        to={`/map/${timeslot}/${trips.indexOf(trip)}`}
                         className="inline-flex items-center justify-center w-20 py-1.5 relative group/btn overflow-hidden rounded-md border border-amber-200 dark:border-amber-700/30 hover:border-amber-400 dark:hover:border-amber-600"
                       >
                         <span className={`absolute inset-0 bg-gradient-to-r ${getGradientColor(title)} transition-all duration-300 group-hover/btn:opacity-90`}></span>
