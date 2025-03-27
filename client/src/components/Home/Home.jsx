@@ -44,9 +44,9 @@ export default function Home() {
     <div>
       {/* Background Image Animation Section */}
       <div
-        className="relative w-full h-[90vh] flex items-center bg-gradient-to-br 
+        className="relative w-screen max-w-full h-[90vh] flex items-center bg-gradient-to-br 
             from-gray-100 to-gray-300 dark:from-gray-800 
-            dark:to-gray-700 animate-gradient"
+            dark:to-gray-700 animate-gradient overflow-hidden"
         style={{ animation: "fadeIn 1s ease-out" }}
       >
         {/* Loading Overlay */}
@@ -57,18 +57,21 @@ export default function Home() {
         >
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="loading-ripple">
-              <div></div>
-              <div></div>
             </div>
           </div>
         </div>
 
         {/* Background Image with loading transition */}
         <div
-          className={`absolute inset-0 transition-all duration-1000 bg-cover bg-center
+          className={`absolute inset-0 w-screen max-w-full transition-all duration-1000 bg-cover bg-center
             ${isLoading ? 'scale-105 blur-sm' : 'scale-100 blur-0'}`}
           style={{ 
             backgroundImage: `url(${images[currentIndex]})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            width: '100vw',
+            maxWidth: '100%',
+            height: '90vh',
             animation: loadedImages[currentIndex] ? "kenBurns 20s infinite alternate" : "none",
             opacity: loadedImages[currentIndex] ? 1 : 0,
           }}
@@ -76,7 +79,7 @@ export default function Home() {
 
         {/* Dark Overlay */}
         <div 
-          className="absolute inset-0 bg-black/50" 
+          className="absolute inset-0 bg-black/50 w-screen max-w-full" 
           style={{ animation: "fadeIn 1.5s ease-out" }}
         ></div>
 
@@ -156,6 +159,32 @@ styleTag.textContent = `
       opacity: 1;
     }
   }
+
+   @media (max-width: 640px) {
+    .background-image {
+      width: 100vw;
+      max-width: 100%;
+      height: 90vh;
+      object-fit: cover;
+    }
+  }
+
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .background-image {
+      width: 100vw;
+      max-width: 100%;
+      height: 90vh;
+      object-fit: cover;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .background-image {
+      width: 100vw;
+      max-width: 100%;
+      height: 90vh;
+      object-fit: cover;
+    }
 
   @keyframes slideInLeft {
     from {
