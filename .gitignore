@@ -1,0 +1,16 @@
+# Node.js (React)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.env
+build/
+dist/
+
+# Python (Flask)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
+instance/
