@@ -27,7 +27,7 @@ const TrackOrder = () => {
     formData.append("file", file);
 
     try {
-      const response = await axios.post("http://localhost:5001/upload", formData, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

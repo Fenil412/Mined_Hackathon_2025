@@ -39,14 +39,14 @@ const Map = () => {
   
       try {
         setLoading(true);
-        const tripsResponse = await axios.get(`http://localhost:5001/trips/${timeslot}`);
+        const tripsResponse = await axios.get(`${import.meta.env.VITE_API_URL}/trips/${timeslot}`);
         const tripData = tripsResponse.data.assignments || [];
         
         if (tripData.length > parseInt(index)) {
           setTripDetails(tripData[parseInt(index)]);
         }
         
-        const mapResponse = await axios.get(`http://localhost:5001/map/${timeslot}/${index}`);
+        const mapResponse = await axios.get(`${import.meta.env.VITE_API_URL}/map/${timeslot}/${index}`);
         setMapHtml(mapResponse.data.map_html || '');
         setError('');
       } catch (err) {

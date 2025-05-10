@@ -13,7 +13,7 @@ export default function SelectTimeslot() {
   useEffect(() => {
     const fetchTimeslots = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/timeslots"); // ✅ Update endpoint to match Flask backend
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/timeslots`); // ✅ Update endpoint to match Flask backend
         setTimeslots(response.data.timeslots);
       } catch (err) {
         setError(err.response?.data?.error || "Error fetching timeslots."); // ✅ Set error message

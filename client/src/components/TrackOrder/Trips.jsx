@@ -36,7 +36,7 @@ export default function Trips({ timeslot }) {
       setLoading(true);
       setError("");
       try {
-        const response = await axios.get(`http://localhost:5001/trips/${timeslot}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/${timeslot}`);
         setTrips(response.data.assignments || []);
       } catch (err) {
         setError(err.response?.data?.error || "Error fetching trips.");
