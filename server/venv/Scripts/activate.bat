@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=E:\PROJECTS\Mined_Hackathon_2025\server\venv
+set VIRTUAL_ENV=D:\PROJECTS\Mined_Hackathon_2025\server\venv
 
 if not defined PROMPT set PROMPT=$P$G
 
