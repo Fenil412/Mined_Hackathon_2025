@@ -10,18 +10,20 @@ export default function SelectTimeslot() {
   const [error, setError] = useState(""); // ✅ Add error state for error handling
   const navigate = useNavigate(); // ✅ Add useNavigate hook
 
-  useEffect(() => {
-    const fetchTimeslots = async () => {
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/timeslots`); // ✅ Update endpoint to match Flask backend
-        setTimeslots(response.data.timeslots);
-      } catch (err) {
-        setError(err.response?.data?.error || "Error fetching timeslots."); // ✅ Set error message
-        console.error("Error fetching timeslots:", err);
-      }
-    };
-    fetchTimeslots();
-  }, []);
+  // Fetch timeslots on component mount
+useEffect(() => {
+  const fetchTimeslots = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/timeslots`);
+      setTimeslots(response.data.timeslots);
+    } catch (err) {
+      setError(err.response?.data?.error || "Error fetching timeslots.");
+      console.error("Error fetching timeslots:", err);
+    }
+  };
+  fetchTimeslots();
+}, []);
+
 
   const handleProceed = (e) => {
     e.preventDefault(); // ✅ Prevent default form submission

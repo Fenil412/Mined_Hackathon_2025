@@ -16,45 +16,52 @@ const TrackOrder = () => {
     setFile(e.target.files[0]);
   };
 
+  // Upload handler
   const handleUpload = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
     if (!file) {
       setMessage("Please select a file to upload.");
       return;
     }
-
     const formData = new FormData();
     formData.append("file", file);
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/upload`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/upload`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
       setMessage(response.data.message);
-      setUploaded(true); // Set uploaded to true to render SelectTimeslot
+      setUploaded(true); // Show timeslot select after upload
     } catch (error) {
       setMessage(error.response?.data?.error || "Error uploading file.");
     }
   };
-
   const handleDownloadClick = () => {
     setClicked(true);
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br 
-    from-gray-100 to-gray-300 dark:from-gray-800 dark:to-gray-700 transition-all duration-500">
+    <div
+      className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br 
+    from-gray-100 to-gray-300 dark:from-gray-800 dark:to-gray-700 transition-all duration-500"
+    >
       {!uploaded ? (
         <>
-          <h4 className="text-gray-800 dark:text-white font-bold text-4xl mb-6 drop-shadow-lg 
-      animate-fade-in">
+          <h4
+            className="text-gray-800 dark:text-white font-bold text-4xl mb-6 drop-shadow-lg 
+      animate-fade-in"
+          >
             UPLOAD SHIPMENT DATA
           </h4>
-          <div className="bg-white dark:bg-gray-900 backdrop-blur-lg p-10 rounded-xl shadow-2xl border 
-      border-gray-300 dark:border-gray-700 animate-slide-in-left transition-all duration-500">
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">Upload File</h2>
+          <div
+            className="bg-white dark:bg-gray-900 backdrop-blur-lg p-10 rounded-xl shadow-2xl border 
+      border-gray-300 dark:border-gray-700 animate-slide-in-left transition-all duration-500"
+          >
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">
+              Upload File
+            </h2>
             <form onSubmit={handleUpload}>
               <input
                 type="file"
